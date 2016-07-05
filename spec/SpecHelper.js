@@ -27,14 +27,6 @@ beforeEach(function () {
           return result;
         }
       };
-    },
-
-    toBe: function () {
-      return {
-        compare: function (actual, expected) {
-          return actual === expected;
-        }
-      };
     }
   });
 });
