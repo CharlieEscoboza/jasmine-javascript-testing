@@ -7,9 +7,11 @@ function Investment (params) {
 }
 
 Investment.prototype.roi = function () {
+  if (!this.sharePrice) return 0;
   return (this.stock.sharePrice - this.sharePrice) / this.sharePrice;
 };
 
 Investment.prototype.isGood = function () {
+  if (!this.sharePrice) return false;
   return this.roi() > 0;
 };

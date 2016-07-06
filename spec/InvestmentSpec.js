@@ -48,12 +48,38 @@ describe('Investment', function () {
       stock.sharePrice = 10;
     });
 
+    it('should have a return of investment method', function () {
+      expect(investment.roi).toBeTruthy();
+    });
+
     it('should have a negative return of investment', function () {
       expect(investment.roi()).toEqual(-0.5);
     });
 
     it('should be a bad investment', function () {
       expect(investment).not.toBeAGoodInvestment();
+    });
+  });
+
+  describe('when no sharePrice is provited', function () {
+    beforeEach(function () {
+      stock = new Stock();
+      investment = new Investment({
+        stock: stock,
+        shares: 100
+      });
+    });
+
+    it('should return an undefined investment sharePrice', function () {
+      expect(investment.sharePrice).toBeUndefined();
+    });
+
+    it('should return 0 return of investment', function () {
+      expect(investment.roi()).toEqual(0);
+    });
+
+    it('should not return a good Investment', function () {
+      expect(investment.isGood()).toBeFalsy();
     });
   });
 });
