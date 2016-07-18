@@ -5,7 +5,11 @@ describe('Investment', function () {
   var investment;
 
   beforeEach(function () {
-    stock = new Stock();
+    stock = new Stock({
+      symbol: 'AOUE',
+      sharePrice: 0
+    });
+
     investment = new Investment({
       stock: stock,
       shares: 100,
@@ -63,7 +67,11 @@ describe('Investment', function () {
 
   describe('when no sharePrice is provited', function () {
     beforeEach(function () {
-      stock = new Stock();
+      stock = new Stock({
+        symbol: 'AOUE',
+        sharePrice: 0
+      });
+
       investment = new Investment({
         stock: stock,
         shares: 100
