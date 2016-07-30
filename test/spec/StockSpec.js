@@ -28,6 +28,68 @@ describe('Stock', function () {
       }
     });
   });
+
+  describe('When fetched', function () {
+    var stock;
+
+      beforeEach(function () {
+        jasmine.Ajax.install();
+
+        stock = new Stock({
+          symbol: 'AOUE',
+          sharePrice: originalSharePrice
+        });
+
+        stock.fetch();
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+          status: 200,
+          contentType: 'application/json',
+          responseText: '{"sharePrice": 20.18}'
+        });
+      });
+
+      afterEach(function () {
+        jasmine.Ajax.uninstall();
+      });
+
+      it("should update its share price", function() {
+        expect(stock.sharePrice).toEqual(20.18);
+      });
+  });
+
+  describe('When fetched 2', function () {
+    var stock;
+
+      beforeEach(function () {
+        jasmine.Ajax.install();
+
+        stock = new Stock({
+          symbol: 'AOUE',
+          sharePrice: 0
+        });
+
+        jasmine.Ajax.stubRequest('http://localhost:3000/stocks/AOUE').
+        andReturn({
+          status: 200,
+          contentType: 'application/json',
+          responseText: '{"sharePrice": 20.18}'
+        });
+
+        stock.fetch();
+      });
+
+      afterEach(function () {
+        jasmine.Ajax.uninstall();
+      });
+
+      it("should update its share price", function(done) {
+        console.log('HEY');
+        console.log(stock);
+        expect(stock.sharePrice).toEqual(20.18);
+        done();
+      });
+  });
 });
 
 function test2() {
